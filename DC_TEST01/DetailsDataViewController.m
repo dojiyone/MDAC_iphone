@@ -629,10 +629,10 @@
 	}
     
     [as addButtonWithTitle:@"キャンセル"];
+    _detailsViewController = [[DetailsViewController alloc] 
+                              initWithNibName:@"DetailsViewController" 
+                              bundle:nil];
     
-    //[as addButtonWithTitle:@"アルバム１"];
-    //[as addButtonWithTitle:@"アルバム２"];
-    //[as addButtonWithTitle:@"アルバム３"];
     //as.cancelButtonIndex = nil;
     //as.destructiveButtonIndex = nil;
     [as showInView:self.view];  
@@ -645,7 +645,7 @@
 // アクションシートのボタンが押された時に呼ばれるデリゲート例文
 -(void)actionSheet:(UIActionSheet*)actionSheet
 clickedButtonAtIndex:(NSInteger)buttonIndex 
-{
+{    
     if(actionSheet.tag ==3){
         int reason_id;
         switch (buttonIndex) 

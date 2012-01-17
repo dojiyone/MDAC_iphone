@@ -20,7 +20,9 @@
 @implementation DetailsViewController
 
 @synthesize re_value;
-//@synthesize Tw_post_flag,Fb_post_flag,Mx_post_flag;
+@synthesize detail_post_btn;
+@synthesize main_window;
+@synthesize main_scrollView;//@synthesize Tw_post_flag,Fb_post_flag,Mx_post_flag;
 //@synthesize inputText,uptext;
 
 - (void)viewDidLoad

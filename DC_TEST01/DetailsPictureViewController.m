@@ -324,6 +324,16 @@ int swipe_direction;
     [backButton addTarget:self action:@selector(back_change_btn:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:backButton];////imgScrollView
     
+    //画像変更（固定文言）
+    UILabel *backLabel = [[UILabel alloc] init];
+    backLabel.frame = CGRectMake(30, 25, 200, 20);
+    backLabel.backgroundColor = [UIColor clearColor];
+    backLabel.textColor = [UIColor lightGrayColor];
+    backLabel.font = [UIFont boldSystemFontOfSize:12];
+    backLabel.textAlignment = UITextAlignmentLeft;
+    backLabel.text = @"戻る";
+    //[self.view addSubview:backLabel];
+    
     
      
      NSString *labeltext=@"画面をタップすると戻るボタンが出現します";

@@ -36,9 +36,13 @@
     int canReport;
     IBOutlet UIScrollView *main_scrollView;
     IBOutlet UIView *main_window;
+    IBOutlet UIButton *detail_post_btn;
 }
 
 @property (nonatomic,retain)NSString *re_value;
+@property (nonatomic,retain)UIButton *detail_post_btn;
+@property (nonatomic,retain)IBOutlet UIView *main_window;
+@property (nonatomic,retain)IBOutlet UIScrollView *main_scrollView;
 /*@property int Tw_post_flag;
  @property int Fb_post_flag;
  @property int Mx_post_flag;
