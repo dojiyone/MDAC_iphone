@@ -64,7 +64,7 @@ const NSUInteger kNumImages		= 1;
 
 -(void) viewDidLoad
 {
-    //Tutorial表示関連
+    //Tutorial表示関連//
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     
     int flag = [defaults integerForKey:@"TUTORIAL_FLAG"];
