@@ -20,6 +20,9 @@
     IBOutlet UIImageView *detail_iamgeView;
     IBOutlet UIImageView *top_image;
     IBOutlet UIButton *img_btn_down;
+    IBOutlet UIButton *iine_button;
+    IBOutlet UILabel *iine_text;
+    int iine_flag;
     
     int uploadFlag;
     int Tw_post_flag;

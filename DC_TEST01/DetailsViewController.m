@@ -52,7 +52,8 @@
     
     NSLog(@"@%@",re_value);
     more1_label.text = re_value;
-    
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    int Uid=[[defaults stringForKey:@"MDAC_UID"] intValue];
     int image_id = [re_value intValue];
     
     loadingAPI* loadingapi=[[loadingAPI alloc] init];
@@ -95,12 +96,16 @@
             [ai release];
             
             fid = [[dic objectForKey:@"uid"]intValue];
+            iine_flag =[[dic objectForKey:@"can_evaluation"]intValue];
         }
         
         
         //iineCount
         iine_label.text = [NSString stringWithFormat:@"%d",evaluationCount];
-        
+        if(Uid == fid || iine_flag ==0){
+            iine_button.hidden =YES;
+            iine_text.hidden =YES;
+        }
         NSLog(@"evaluationCount %d",evaluationCount);
         NSLog(@"canRreport %d",canReport);
     }
@@ -161,18 +166,7 @@
     NSLog(@"%d",image_id);
     
     NSLog(@"%d",fid);
-    if(Uid == fid){
-        UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:@""
-                          message:@"自分の画像です"
-                          delegate:nil
-                          cancelButtonTitle:nil
-                          otherButtonTitles:@"OK", nil];
-        [alert show];
-        [alert release];
-        return;
-        
-    }
+
 
     [self ShowActivity];
     loadingAPI* loadingapi=[[loadingAPI alloc] init];
