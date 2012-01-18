@@ -15,6 +15,7 @@
 #import "RankingViewController.h"
 #import "DetailsPictureViewController.h"
 #import "PostEditViewController.h"
+#import "PostDataEditViewController.h"
 
 
 @implementation DetailsViewController
@@ -213,6 +214,16 @@
     }
 }
 
+-(IBAction) edit_btn_down:(id)sender;
+{    
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    PostDataEditViewController *_postdataeditviewcontroller = [[PostDataEditViewController alloc] 
+                                  initWithNibName:@"PostDataEditViewController" 
+                                  bundle:nil];
+    //_detailsDataViewController.image_id = re_value;
+	[self.navigationController pushViewController:_postdataeditviewcontroller 
+										 animated:NO];
+}
 /*
  -(IBAction) back_btn_down:(id)sender;
  {    
@@ -266,6 +277,7 @@
 
 -(IBAction) details_btn_down:(id)sender;
 {
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     UIImage *top_img = [UIImage imageNamed:@"common_commonnavi_0.png"];
     [top_image setImage:top_img];
     NSLog(@"ssss");
@@ -280,6 +292,7 @@
 
 -(IBAction) detailsData_btn_down:(id)sender;
 {
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     UIImage *top_img = [UIImage imageNamed:@"common_commonnavi_1.png"];
     [top_image setImage:top_img];
     _detailsDataViewController = [[DetailsDataViewController alloc] 
@@ -306,6 +319,7 @@
 
 -(IBAction) detailsComments_btn_down:(id)sender;
 {
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     UIImage *top_img = [UIImage imageNamed:@"common_commonnavi_2.png"];
     [top_image setImage:top_img];
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
@@ -324,6 +338,7 @@
 
 -(IBAction) detailsShare_btn_down:(id)sender;
 {
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     UIImage *top_img = [UIImage imageNamed:@"common_commonnavi_3.png"];
     [top_image setImage:top_img];
     AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);

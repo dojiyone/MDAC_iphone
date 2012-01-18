@@ -1593,7 +1593,6 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 
 - (void)Leave{
     
-    
 }
 
 

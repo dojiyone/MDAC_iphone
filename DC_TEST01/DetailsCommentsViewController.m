@@ -83,7 +83,73 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-- (void)getComment{
+/*
+ //webビュー使おうとした
+ -(void)getComment
+ {
+ 
+ 
+ UIWebView *_webview=[[UIWebView alloc]init];
+ _webview.frame=self.view.bounds;
+ _webview.autoresizingMask=UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+ _webview.dataDetectorTypes=UIDataDetectorTypeAll;
+ _webview.delegate=self;
+ [scrollView addSubview:_webview];
+ 
+ loadingAPI* loadingapi=[[loadingAPI alloc] init];
+ 
+ //公式タグ一覧のデータを受信
+ long num = [image_id intValue];
+ NSDictionary *restmp=[loadingapi getComment:num:0 :3];
+ NSLog(@"aaa %@",restmp);
+ int tagNum = [[restmp objectForKey:@"result"] count];
+ int i=0;
+ 
+ UIViewController *viewController1;
+ viewController1 = [[UIViewController alloc] init];
+ 
+ int margin = 26;//27配置時の高さマージン
+ int prePos=0;
+ int strGyou=1;
+ 
+ NSString *htmltext=@"";
+ for (i=0; i<tagNum; i++) 
+ {
+ //restmpから１行ずつデータを取り出す
+ NSArray *result = [[restmp objectForKey:@"result"] objectAtIndex:i];
+ for (NSDictionary *dic in result) 
+ {
+ NSMutableString *Comment =[NSMutableString stringWithFormat:@"%@",[dic objectForKey:@"comment"]];
+ int strlen=[Comment length];
+ 
+ [Comment replaceOccurrencesOfString:@"\n" withString:@"" options:0 range:NSMakeRange(0, strlen)];
+ 
+ NSString *Name =[NSString stringWithFormat:@"%@",[dic objectForKey:@"name"]];            
+ NSString *Date =[NSString stringWithFormat:@"%@",[dic objectForKey:@"post_date"]];
+ int uid =[[dic objectForKey:@"uid"]integerValue];
+ 
+ 
+ NSString *actMsg=[NSString stringWithFormat:@"<div style='width:300px; margin-bottom: 9px; font:13px serif; font-weight:500;'>%@<br><br><a href='uid:%d'>%@              %@</a></div><div style='width:300px; margin-bottom: 9px; border: thin lightgrey dashed;'></div>",Comment,uid,Name,Date];
+ 
+ 
+ htmltext=[NSString stringWithFormat:@"<head><style type='text/css'><!-- a{ text-decoration:none;} --></style><head><body link='brown' alink='brown' vlink='brown'>%@%@</body>",htmltext,actMsg];
+ 
+ }
+ }
+ 
+ 
+ 
+ NSLog(@"html %@",htmltext);
+ htmltext=[NSString stringWithFormat:@"<br>%@<br><br><br><br><br><br>",htmltext];
+ 
+ [_webview loadHTMLString:htmltext baseURL:nil];
+ }
+ 
+ */
+
+
+- (void)getComment
+{
     loadingAPI* loadingapi=[[loadingAPI alloc] init];
     
     //公式タグ一覧のデータを受信
@@ -96,7 +162,7 @@
     UIViewController *viewController1;
     viewController1 = [[UIViewController alloc] init];
     
-    int margin = 27;//配置時の高さマージン
+    int margin = 27;//27配置時の高さマージン
     int prePos=0;
     int strGyou=1;
     for (i=0; i<tagNum; i++) 
@@ -105,33 +171,50 @@
         NSArray *result = [[restmp objectForKey:@"result"] objectAtIndex:i];
         for (NSDictionary *dic in result) 
         {
-            NSString *Conmment =[NSString stringWithFormat:@"%@",[dic objectForKey:@"comment"]];
+            NSMutableString *Comment =[NSMutableString stringWithFormat:@"%@",[dic objectForKey:@"comment"]];
+            int strlen=[Comment length];
+            
+            [Comment replaceOccurrencesOfString:@"\n" withString:@"" options:0 range:NSMakeRange(0, strlen)];
+            
             NSString *Name =[NSString stringWithFormat:@"%@",[dic objectForKey:@"name"]];            
             NSString *Date =[NSString stringWithFormat:@"%@",[dic objectForKey:@"post_date"]];
             int uid =[[dic objectForKey:@"uid"]integerValue];
             // 背景
+            int strOlGyou=(strlen/17)+1;
+            strGyou = [self strLength:Comment : strlen]/17;            
+            //strGyou +=1;//奇数を維持
             
-            strGyou = [self strLength:Conmment : 0]/17;
-            //if(strGyou<=2) strGyou=3;
-            //else if(strGyou%2==0) 
-            strGyou +=1;//奇数を維持
+            int delGyou=strOlGyou-strGyou;
+            NSLog(@"addstr %d %d %d",delGyou,strGyou,strOlGyou);
+            
+            if(delGyou>0) strOlGyou =strGyou+1;
+            
             
             NSLog(@"str %d",strGyou);
-            int nowPos=strGyou*margin;
+            int nowPos=strOlGyou*margin;
             /* 
              UIImage *image = [UIImage imageNamed:@"comment_bg.png"];
              UIImageView *iv = [[UIImageView alloc] initWithImage:image];
              iv.frame = CGRectMake(0, 15 + (preGyou*margin)*i, 320, 69);
              [scrollView addSubview:iv];
              */ 
+            
+            
             //コメント表示
             UITextView *ComentText = [[UITextView alloc]init];
+            //UILabel *ComentText = [[UILabel alloc]init];
             ComentText.frame = CGRectMake(9, prePos, 294,nowPos);
-            ComentText.backgroundColor = [UIColor clearColor];
+            ComentText.backgroundColor = [UIColor  colorWithRed:0.98 green:0.98 blue:0.98 alpha:1.0];
             ComentText.font = [UIFont boldSystemFontOfSize:15];
             ComentText.textAlignment = UITextAlignmentLeft;
-            ComentText.text = Conmment;
+            ComentText.text = Comment;
+            
+            //label用
+            //ComentText.numberOfLines = strGyou;
+            
+            
             ComentText.editable =NO;
+            //ComentText.scrollEnabled=NO;
             [scrollView addSubview:ComentText];
             
             /*
@@ -176,54 +259,64 @@
             [deletaButton addTarget:self action:@selector(fanpage_btn_down:) forControlEvents:UIControlEventTouchUpInside];
             [scrollView addSubview:deletaButton];
             /*
-            //コメントをクリックすると投稿者のFanpageへと移動
-            UIButton *deletaButton4 = [UIButton buttonWithType:UIButtonTypeCustom];
-            [deletaButton4 setTitle:@"" forState:UIControlStateNormal];
-            [deletaButton4 setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-            deletaButton4.frame = CGRectMake(9, prePos, 294,nowPos);
-            deletaButton4.tag = uid;
-            //位置調整など
-            [deletaButton4 addTarget:self action:@selector(fanpage_btn_down:) forControlEvents:UIControlEventTouchUpInside];
-            [scrollView addSubview:deletaButton4];
-            */
+             //コメントをクリックすると投稿者のFanpageへと移動
+             UIButton *deletaButton4 = [UIButton buttonWithType:UIButtonTypeCustom];
+             [deletaButton4 setTitle:@"" forState:UIControlStateNormal];
+             [deletaButton4 setBackgroundImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+             deletaButton4.frame = CGRectMake(9, prePos, 294,nowPos);
+             deletaButton4.tag = uid;
+             //位置調整など
+             [deletaButton4 addTarget:self action:@selector(fanpage_btn_down:) forControlEvents:UIControlEventTouchUpInside];
+             [scrollView addSubview:deletaButton4];
+             */
             
             //前の位置を保持
             prePos +=(nowPos+42);
         }
-        scrollView.contentSize = CGSizeMake(320,prePos);
+        scrollView.contentSize = CGSizeMake(320,prePos+100);
         
         
     }
 }
 
 
-// 文字の数を戻す（半角は１，全角は２としてカウント）
-- (int) strLength :(NSString *) aValue :(int)strlen
+- (int) strLength :(NSString *) aValue:(int)strlen
 {
-    int nowCount=[aValue length];
     
-    int truthCount=0;
-    int truthCenterPx=0;
-    for(int i=0;i<nowCount;i++)
-    {
-        
-        NSString *oneStr = [aValue substringWithRange:NSMakeRange(i,1)];
-        // 文字は存在しているので１をカウント
-        truthCount++;
-        // 全角だった場合はもう一つカウント
-        
-        NSRange match = [oneStr rangeOfString:@"[\x20-\x7E\xA1-\xDF\｡-ﾟ]" options:NSRegularExpressionSearch];
-        if (match.location == NSNotFound) {}
-        else        truthCount++;
-        
-        
-    }
+    //NSLog(@"string %@",aValue);
+    //int nowCount=[aValue length]*2;
     
-    //実態が小さい場合の微調整
-    //truthCount-=1;
+    NSData *utf8Data = [aValue dataUsingEncoding:NSUTF8StringEncoding];
+    int strCount = ([utf8Data length])/2;
     
-    truthCount=truthCount/2;
-    return truthCount;
+    //差分
+    //strCount =nowCount-strCount;
+    
+    return strCount;
+    
+    
+    /*
+     int truthCount=0;
+     for(int i=0;i<strlen;i++)
+     {
+     NSString *oneStr = [aValue substringWithRange:NSMakeRange(i,1)];
+     // 文字は存在しているので１をカウント
+     truthCount++;
+     
+     // 全角だった場合はもう一つカウント
+     NSRange match = [oneStr rangeOfString:@"[\x20-\x7E\xA1-\xDF]" options:NSRegularExpressionSearch];
+     if (match.location != NSNotFound) {}
+     else        truthCount++;
+     
+     
+     }
+     
+     //実態が小さい場合の微調整
+     //truthCount-=1;
+     
+     // truthCount=truthCount/2;
+     return truthCount/2;*/
+    
     
 }
 
@@ -243,7 +336,8 @@
     
 }
 
--(void)fanpage_btn_down:(UIButton *)sender{
+-(void)fanpage_btn_down:(UIButton *)sender
+{
     
     NSLog(@"@%d",sender.tag);
     //ログインID＝fanpageIDならmypageへ移動
@@ -259,7 +353,7 @@
                                  bundle:nil];
         
         [nabi pushViewController:_mypageViewController
-                                             animated:YES];
+                        animated:YES];
         
     }
     else{
@@ -268,7 +362,7 @@
                                   initWithNibName:@"FanpageViewController" 
                                   bundle:nil];
         [nabi pushViewController:_fanpageViewController 
-                                             animated:YES];
+                        animated:YES];
     }
     
 }
@@ -306,7 +400,7 @@
 }
 -(IBAction) postComment_btn_down:(id)sender
 {
-
+    
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
     int Uid=[[defaults stringForKey:@"MDAC_UID"] intValue];
     if(Uid==0){

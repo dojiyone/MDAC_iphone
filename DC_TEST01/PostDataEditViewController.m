@@ -59,4 +59,8 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
+- (void)viewDidAppear:(BOOL)animated
+{
+}
+
 @end

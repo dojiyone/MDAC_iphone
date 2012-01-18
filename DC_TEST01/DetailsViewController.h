@@ -37,6 +37,8 @@
     IBOutlet UIScrollView *main_scrollView;
     IBOutlet UIView *main_window;
     IBOutlet UIButton *detail_post_btn;
+    IBOutlet UILabel *edit_label;
+    IBOutlet UIButton *edit_btn;
 }
 
 @property (nonatomic,retain)NSString *re_value;
@@ -56,6 +58,8 @@
 -(IBAction) postComment_btn_down:(id)sender;
 -(IBAction) favorite_btn_down:(id)sender;
 -(IBAction) img_btn_down:(id)sender;
+-(IBAction) edit_btn_down:(id)sender;
+
 
 -(void) uploadSNS;
 @end
