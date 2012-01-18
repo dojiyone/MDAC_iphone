@@ -36,6 +36,7 @@
     [self showAlbumList];
 }
 
+
 -(void)showAlbumList
 {
     NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
@@ -178,7 +179,7 @@
             [deletaButton sizeToFit];
             //位置調整など
             deletaButton.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin;
-            deletaButton.tag = i;
+            deletaButton.tag = [[dic objectForKey:@"album_id"]integerValue];//= i;
             [deletaButton addTarget:self action:@selector(image_change_btn:) forControlEvents:UIControlEventTouchUpInside];
             //deletaButton.center = CGPointMake(6, 51);
             //deletaButton.contentMode = UIViewContentModeScaleToFill;
@@ -336,7 +337,7 @@
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"アルバムの追加"
                                                     message:@"\n\n\n"
                                                    delegate:self
-                                          cancelButtonTitle:@"変更"
+                                          cancelButtonTitle:@"決定"
                                           otherButtonTitles:@"やめる",nil];
     
     textView =[[UITextField alloc] initWithFrame:CGRectMake(20.0, 45.0, 245.0, 55.0)];
@@ -373,6 +374,7 @@
                                           otherButtonTitles:@"やめる",nil];
     alert.tag=sender.tag;
     
+    //該当アルバムから画像リストを取得
     NSDictionary *restmp = [loadingapi getAlbumimageList:sender.tag :0 :30];
     NSLog(@"aaa %@",restmp);
     int cnt = [[restmp objectForKey:@"result"] count];
@@ -392,58 +394,21 @@
     
     
     
-    
     for (int i=0; i<cnt; i++) 
     {
         NSArray *result = [[restmp objectForKey:@"result"] objectAtIndex:i];
-        
         for (NSDictionary *dic in result) 
         {
-            
-            NSString *real_path = [NSString stringWithFormat:@"http://pic.mdac.me%@",[dic objectForKey:@"real_path"]];
             NSString *post_image_id  = [dic objectForKey:@"post_image_id"];
-            NSData *dt = [NSData dataWithContentsOfURL:
-                          [NSURL URLWithString:real_path]];
-            UIImage *image = [[UIImage alloc] initWithData:dt];
-            if(image == nil)[UIImage imageNamed:@"common_dummy.png"];
+            UIImage *image=[loadingapi changeImageStyle:[dic objectForKey:@"real_path"] :100:100 :2:2 :@"" :0 :0 :0:0 :0 :0:0];
+            //if(image == nil) image =[UIImage imageNamed:@"common_dummy.png"];
+            
             iconImg[i]=image;
             img_id[i]=[post_image_id integerValue];
             
         }
     }
     
-    
-    /*
-     int i=0;
-     for (i=0; i<cnt; i++) 
-     {
-     NSArray *result = [[restmp objectForKey:@"result"] objectAtIndex:i];
-     
-     for (NSDictionary *dic in result) 
-     {
-     NSString *post_image_id  = [dic objectForKey:@"post_image_id"];
-     img_id[i]=[post_image_id integerValue];
-     
-     
-     UIImage *newimage=[loadingapi changeImageStyle:[dic objectForKey:@"real_path"] :100:100 :2:2 :@"" :0 :0 :0:0 :0 :0:0];
-     if(newimage == nil) newimage =[UIImage imageNamed:@"common_dummy.png"];
-     
-     
-     
-     
-     //画像をいったん別に生成///////////////////////////////////////
-     CGSize sz1 = CGSizeMake(newimage.size.width*2,newimage.size.height*2);
-     UIGraphicsBeginImageContext(sz1);
-     
-     [newimage drawInRect:CGRectMake(0, 0, sz1.width, sz1.height)];
-     UIImage *img_ato1 = UIGraphicsGetImageFromCurrentImageContext();
-     UIGraphicsEndImageContext(); 
-     /////////////////////////////////////////////////////////////
-     
-     
-     iconImg[i]=img_ato1;
-     }
-     }*/
     
     count = cnt;
     tableView = [[UITableView alloc] init];
@@ -458,6 +423,7 @@
     //[alert addSubview:textView];
     [alert show];
     [alert release];
+    [loadingapi release];
 }
 
 #pragma mark - UITableViewDataSource
@@ -621,7 +587,8 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     
     loadingAPI* loadingapi=[[loadingAPI alloc] init];
-    if([alertView.title isEqualToString:@"アルバムの追加"]){
+    if([alertView.title isEqualToString:@"アルバムの追加"])
+    {
         switch (buttonIndex)
         {
             case 1:
@@ -674,7 +641,8 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
                 break;
         }
     }
-    else if([alertView.title isEqualToString:@"確認"]){
+    else if([alertView.title isEqualToString:@"確認"])
+    {
         switch (buttonIndex)
         {
             case 1:
@@ -700,7 +668,8 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
                 break;
         }
     }
-    else if([alertView.title isEqualToString:@"名前変更"]){
+    else if([alertView.title isEqualToString:@"名前変更"])
+    {
         switch (buttonIndex)
         {
             case 1:
@@ -753,41 +722,40 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
         }
         
     }
-    else{        
+    else
+    {        
+        int imageID = select_id;
+        select_id=0;//取得したら捨てる
         switch (buttonIndex)
         {
             case 1:
-                NSLog(@"iie");
-                
+                NSLog(@"iie");               
                 break;
             case 0:
-                NSLog(@"hai %d",alertView.tag);
-                long num = select_id;
-
-                if(num == nil)
+                // NSLog(@"hai %d",alertView.tag);
+                
+                if(imageID==0)
                 {
-                        
                     UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle:@""
-                          message:@"画像を選択して下さい"
-                          delegate:nil
-                          cancelButtonTitle:nil
-                          otherButtonTitles:@"OK", nil];
+                                          initWithTitle:@""
+                                          message:@"画像を選択して下さい"
+                                          delegate:nil
+                                          cancelButtonTitle:nil
+                                          otherButtonTitles:@"OK", nil];
                     [alert show];
                     [alert release];
-                    return;
                 }
-                if(num !=nil){
-                    loadingAPI* loadingapi=[[loadingAPI alloc] init];
-                    NSLog(@"画像の変更");
-                    
-                    [loadingapi saveAlbumIcon:alertView.tag :num];
+                else
+                {
+                    loadingAPI* loadingapi=[[loadingAPI alloc] init];                    
+                    [loadingapi saveAlbumIcon:alertView.tag :imageID];
                 }
                 [self reload_view];
                 break;
         }
     }
 }
+
 
 -(void)reload_view
 {
