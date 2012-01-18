@@ -203,7 +203,15 @@
 }
 
 
-
+-(IBAction) back_btn_down:(id)sender;
+{
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    int pass_ranking = [[defaults stringForKey:@"PASS_RANKING"] intValue];
+    if(pass_ranking != -1){
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+        [self.navigationController popViewControllerAnimated:NO];
+    }
+}
 
 /*
  -(IBAction) back_btn_down:(id)sender;

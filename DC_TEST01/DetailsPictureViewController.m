@@ -325,14 +325,14 @@ int swipe_direction;
     [self.view addSubview:backButton];////imgScrollView
     
     //画像変更（固定文言）
-    UILabel *backLabel = [[UILabel alloc] init];
+    backLabel = [[UILabel alloc] init];
     backLabel.frame = CGRectMake(30, 25, 200, 20);
     backLabel.backgroundColor = [UIColor clearColor];
     backLabel.textColor = [UIColor lightGrayColor];
     backLabel.font = [UIFont boldSystemFontOfSize:12];
     backLabel.textAlignment = UITextAlignmentLeft;
     backLabel.text = @"戻る";
-    //[self.view addSubview:backLabel];
+    [self.view addSubview:backLabel];
     
     
      
@@ -366,10 +366,13 @@ int swipe_direction;
     if(backButton.hidden==YES)
     {
         backButton.hidden=NO;
+        backLabel.hidden =NO;
     }
     else
     {
         backButton.hidden=YES;
+        
+        backLabel.hidden =YES;
     }
 }
 

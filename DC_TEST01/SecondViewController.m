@@ -434,11 +434,13 @@
     [defaults setObject:Nil forKey:@"TwitterAccessTokenSecret"];
     [defaults setObject:Nil forKey:@"TwitterName"];
     
-    
+    NSString* MainSNS=[defaults stringForKey:@"SNS_NAME"];
+    if([MainSNS isEqualToString:@"twitter"]){
     if([self getSnsLoginStatus:3]==1)[defaults setObject:@"mixi" forKey:@"SNS_NAME"];
     else if([self getSnsLoginStatus:2]==1)[defaults setObject:@"facebook" forKey:@"SNS_NAME"];
     //if([self getSnsLoginStatus:1]==1)[defaults setObject:@"twitter" forKey:@"SNS_NAME"];
     else [defaults setObject:Nil forKey:@"SNS_NAME"];
+    }
     
     _secondViewController = [[SecondViewController alloc] 
                              initWithNibName:@"SecondView" 
@@ -455,10 +457,13 @@
     [defaults setObject:Nil forKey:@"FBAccessToken"];
     [defaults setObject:Nil forKey:@"FBName"];
     
+    NSString* MainSNS=[defaults stringForKey:@"SNS_NAME"];
+    if([MainSNS isEqualToString:@"facebook"]){
     if([self getSnsLoginStatus:3]==1)[defaults setObject:@"mixi" forKey:@"SNS_NAME"];
     //if([self getSnsLoginStatus:2]==1)[defaults setObject:@"facebook" forKey:@"SNS_NAME"];
     else if([self getSnsLoginStatus:1]==1)[defaults setObject:@"twitter" forKey:@"SNS_NAME"];
     else [defaults setObject:Nil forKey:@"SNS_NAME"];
+    }
     
     _secondViewController = [[SecondViewController alloc] 
                              initWithNibName:@"SecondView" 
@@ -475,10 +480,13 @@
     
     //if([self getSnsLoginStatus:3]==1)[defaults setObject:@"mixi" forKey:@"SNS_NAME"];
     //FB
-    if([self getSnsLoginStatus:2]==1)[defaults setObject:@"facebook" forKey:@"SNS_NAME"];
-    
-    else if([self getSnsLoginStatus:1]==1)[defaults setObject:@"twitter" forKey:@"SNS_NAME"];
-    else [defaults setObject:Nil forKey:@"SNS_NAME"];
+    NSString* MainSNS=[defaults stringForKey:@"SNS_NAME"];
+    if([MainSNS isEqualToString:@"mixi"]){
+        if([self getSnsLoginStatus:2]==1)[defaults setObject:@"facebook" forKey:@"SNS_NAME"];
+        
+        else if([self getSnsLoginStatus:1]==1)[defaults setObject:@"twitter" forKey:@"SNS_NAME"];
+        else [defaults setObject:Nil forKey:@"SNS_NAME"];
+    }
     
     _secondViewController = [[SecondViewController alloc] 
                              initWithNibName:@"SecondView" 
@@ -1632,8 +1640,11 @@ clickedButtonAtIndex:(NSInteger)buttonIndex
  #endif
  */
 
-
-
+-(IBAction) back_btn_down:(id)sender;
+{
+    AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    [self.navigationController popToRootViewControllerAnimated:NO];
+}
 
 @end
 

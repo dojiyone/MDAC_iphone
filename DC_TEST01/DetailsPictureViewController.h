@@ -34,6 +34,7 @@
     int nowAngle;
     UIButton *backButton;
     UIImage *post_image;
+    UILabel *backLabel;
 }
 @property (nonatomic, retain) NSDate *startTime;
 @property (nonatomic,retain)NSString *re_value;
