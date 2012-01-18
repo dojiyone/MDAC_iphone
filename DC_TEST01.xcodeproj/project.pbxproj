@@ -135,6 +135,8 @@
 		B6887A311471BB6E00770AA1 /* bg.png in Resources */ = {isa = PBXBuildFile; fileRef = B6887A301471BB6E00770AA1 /* bg.png */; };
 		B68AAC9A14905D8100F25632 /* NewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B68AAC9814905D8000F25632 /* NewViewController.m */; };
 		B68AAC9B14905D8100F25632 /* NewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B68AAC9914905D8100F25632 /* NewViewController.xib */; };
+		B690FE6014C6956900C48C27 /* PostDataEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B690FE5E14C6956700C48C27 /* PostDataEditViewController.m */; };
+		B690FE6114C6956900C48C27 /* PostDataEditViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B690FE5F14C6956800C48C27 /* PostDataEditViewController.xib */; };
 		B6A9B78C1495868B00D90A70 /* FirstView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6A9B7881495868B00D90A70 /* FirstView.xib */; };
 		B6A9B78D1495868B00D90A70 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = B6A9B7891495868B00D90A70 /* InfoPlist.strings */; };
 		B6A9B78E1495868B00D90A70 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = B6A9B78A1495868B00D90A70 /* MainWindow.xib */; };
@@ -513,6 +515,9 @@
 		B68AAC9714905D8000F25632 /* NewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewViewController.h; sourceTree = "<group>"; };
 		B68AAC9814905D8000F25632 /* NewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewViewController.m; sourceTree = "<group>"; };
 		B68AAC9914905D8100F25632 /* NewViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewViewController.xib; sourceTree = "<group>"; };
+		B690FE5D14C6956600C48C27 /* PostDataEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PostDataEditViewController.h; sourceTree = "<group>"; };
+		B690FE5E14C6956700C48C27 /* PostDataEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PostDataEditViewController.m; sourceTree = "<group>"; };
+		B690FE5F14C6956800C48C27 /* PostDataEditViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PostDataEditViewController.xib; sourceTree = "<group>"; };
 		B6A9B7881495868B00D90A70 /* FirstView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FirstView.xib; sourceTree = "<group>"; };
 		B6A9B7891495868B00D90A70 /* InfoPlist.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		B6A9B78A1495868B00D90A70 /* MainWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
@@ -914,6 +919,9 @@
 				B6C768BA14A20DAC00653825 /* DetailsPictureViewController.h */,
 				B6C768BB14A20DB100653825 /* DetailsPictureViewController.m */,
 				B6C768BC14A20DB800653825 /* DetailsPictureViewController.xib */,
+				B690FE5D14C6956600C48C27 /* PostDataEditViewController.h */,
+				B690FE5E14C6956700C48C27 /* PostDataEditViewController.m */,
+				B690FE5F14C6956800C48C27 /* PostDataEditViewController.xib */,
 			);
 			path = DC_TEST01;
 			sourceTree = "<group>";
@@ -1448,6 +1456,7 @@
 				B6EF383214B3434D00C569B7 /* order_1.png in Resources */,
 				B6EF383314B3434D00C569B7 /* order_0.png in Resources */,
 				B6548DED14B4A12800209AA4 /* common_dummy.png in Resources */,
+				B690FE6114C6956900C48C27 /* PostDataEditViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1536,6 +1545,7 @@
 				B687534614A7EF2500E6408F /* AlertTableTagViewController.m in Sources */,
 				B6EB12F314A890680077464B /* ModalDatePickerViewController.m in Sources */,
 				B6548DEA14B4457700209AA4 /* dataButton.m in Sources */,
+				B690FE6014C6956900C48C27 /* PostDataEditViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
