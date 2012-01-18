@@ -209,7 +209,7 @@
     int pass_ranking = [[defaults stringForKey:@"PASS_RANKING"] intValue];
     if(pass_ranking != -1){
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-        [self.navigationController popViewControllerAnimated:NO];
+        [self.navigationController popToRootViewControllerAnimated:NO];
     }
 }
 

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TopViewController.h"
 
-@interface PostDataEditViewController : UIViewController
+@class TopViewController;
+
+@interface PostDataEditViewController : TopViewController
 
 @end

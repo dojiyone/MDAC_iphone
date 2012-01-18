@@ -7,6 +7,17 @@
 //
 
 #import "PostDataEditViewController.h"
+#import "PostEditViewController.h"
+#import "loadingAPI.h"
+#import "SecondViewController.h"
+#import "FBTestViewController.h"
+#import "TwTestViewController.h"
+#import "MixiTestViewController.h"
+#import "AlertTableTagViewController.h"
+#import "DetailsViewController.h"
+#import "DetailsShareViewConroller.h"
+#import "TopViewController.h"
+#import "MypageViewController.h"
 
 @implementation PostDataEditViewController
 
